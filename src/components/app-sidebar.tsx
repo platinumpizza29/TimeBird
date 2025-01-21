@@ -27,6 +27,7 @@ import {
   SidebarRail,
 } from "~/components/ui/sidebar";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 // This is sample data.
 const data = {
@@ -154,6 +155,8 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const router = useRouter();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -164,7 +167,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.Accessibility} />
       </SidebarContent>
       <SidebarFooter>
-        <Button size="sm" className="mb-4 w-full justify-start">
+        <Button
+          size="sm"
+          className="mb-4 w-full justify-start"
+          onClick={() => router.push("/loghours")}
+        >
           <PlusCircleIcon /> Log hours
         </Button>
         <NavUser />
