@@ -7,13 +7,10 @@ import {
   Bot,
   ChartAreaIcon,
   Command,
-  Frame,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
+  PlusCircleIcon,
   Settings,
   Settings2,
-  SquareTerminal,
   User,
 } from "lucide-react";
 
@@ -26,8 +23,10 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenuItem,
   SidebarRail,
 } from "~/components/ui/sidebar";
+import { Button } from "./ui/button";
 
 // This is sample data.
 const data = {
@@ -165,6 +164,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.Accessibility} />
       </SidebarContent>
       <SidebarFooter>
+        <Button size="sm" className="mb-4 w-full justify-start">
+          <PlusCircleIcon /> Log hours
+        </Button>
         <NavUser />
       </SidebarFooter>
       <SidebarRail />
