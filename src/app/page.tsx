@@ -1,39 +1,112 @@
-import Link from "next/link";
+import BlogPostComp from "~/components/landingPage/blogPostComp";
+import ContactUs from "~/components/landingPage/contactUs";
+import FeaturesComp from "~/components/landingPage/featuresComp";
+import FooterComp from "~/components/landingPage/footerComp";
 import NavbarComp from "~/components/landingPage/navbarComp";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+    <main className="">
       <NavbarComp />
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
+      <section className="bg-white dark:bg-gray-900">
+        <div className="container mx-auto flex flex-col space-y-6 px-6 py-10 lg:h-[32rem] lg:flex-row lg:items-center lg:py-16">
+          <div className="w-full lg:w-1/2">
+            <div className="lg:max-w-lg">
+              <h1 className="text-3xl font-semibold tracking-wide text-gray-800 dark:text-white lg:text-4xl">
+                Easiest way to create your website
+              </h1>
+
+              <div className="mt-8 space-y-5">
+                <p className="-mx-2 flex items-center text-gray-700 dark:text-gray-200">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-2 h-6 w-6 text-blue-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+
+                  <span className="mx-2">Clean and Simple Layout</span>
+                </p>
+
+                <p className="-mx-2 flex items-center text-gray-700 dark:text-gray-200">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-2 h-6 w-6 text-blue-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+
+                  <span className="mx-2">Just Copy Paste Codeing</span>
+                </p>
+
+                <p className="-mx-2 flex items-center text-gray-700 dark:text-gray-200">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-2 h-6 w-6 text-blue-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+
+                  <span className="mx-2">Easy to Use</span>
+                </p>
+              </div>
             </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
+
+            <div className="mt-8 w-full rounded-md border bg-transparent focus-within:border-blue-400 focus-within:ring focus-within:ring-blue-300 focus-within:ring-opacity-40 dark:border-gray-700 dark:focus-within:border-blue-400 lg:max-w-sm">
+              <form className="flex flex-col lg:flex-row">
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  className="m-1 h-10 flex-1 appearance-none border-none bg-transparent px-4 py-2 text-gray-700 placeholder-gray-400 focus:placeholder-transparent focus:outline-none focus:ring-0 dark:text-gray-200"
+                />
+
+                <button
+                  type="button"
+                  className="m-1 h-10 transform rounded-md bg-blue-500 px-4 py-2 text-white transition-colors duration-300 hover:bg-blue-400 focus:bg-blue-400 focus:outline-none"
+                >
+                  Join Us
+                </button>
+              </form>
             </div>
-          </Link>
+          </div>
+
+          <div className="flex h-96 w-full items-center justify-center lg:w-1/2">
+            <img
+              className="mx-auto h-full w-full rounded-md object-cover lg:max-w-2xl"
+              src="https://images.unsplash.com/photo-1543269664-7eef42226a21?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+              alt="glasses photo"
+            />
+          </div>
         </div>
-      </div>
+      </section>
+      <FeaturesComp />
+      <BlogPostComp />
+      <ContactUs />
+      <FooterComp />
     </main>
   );
 }
