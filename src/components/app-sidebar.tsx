@@ -5,6 +5,7 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
+  ChartAreaIcon,
   Command,
   Frame,
   GalleryVerticalEnd,
@@ -54,21 +55,21 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Summary",
       url: "#",
-      icon: SquareTerminal,
+      icon: ChartAreaIcon,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "Weekly",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "Monthly",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "Yearly",
           url: "#",
         },
       ],
