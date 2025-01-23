@@ -5,7 +5,7 @@ export default function LogHours() {
   return (
     <div>
       <NavbarComp />
-      <section className="mx-auto max-w-4xl rounded-md bg-white p-6 shadow-md dark:bg-gray-800">
+      <section className="mx-auto max-w-4xl rounded-md p-6 shadow-md dark:bg-gray-800">
         <h2 className="text-lg font-semibold capitalize text-gray-700 dark:text-white">
           Account settings
         </h2>
