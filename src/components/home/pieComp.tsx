@@ -1,33 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
+import { Card, CardContent } from "~/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "~/components/ui/chart";
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
+
+// Define a type for the chart data
+interface ChartData {
+  browser: string;
+  visitors: number;
+  fill: string;
+}
+
+const chartData: ChartData[] = [
+  { browser: "Chrome", visitors: 275, fill: "var(--color-chrome)" },
+  { browser: "Safari", visitors: 200, fill: "var(--color-safari)" },
+  { browser: "Firefox", visitors: 287, fill: "var(--color-firefox)" },
+  { browser: "Edge", visitors: 173, fill: "var(--color-edge)" },
+  { browser: "Other", visitors: 190, fill: "var(--color-other)" },
 ];
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   visitors: {
     label: "Visitors",
   },
@@ -51,7 +49,7 @@ const chartConfig = {
     label: "Other",
     color: "hsl(var(--chart-5))",
   },
-} satisfies ChartConfig;
+};
 
 export function PieChartComp() {
   const totalVisitors = React.useMemo(() => {
@@ -73,6 +71,7 @@ export function PieChartComp() {
               nameKey="browser"
               innerRadius={60}
               strokeWidth={5}
+              stroke="var(--color-background)" // Set stroke color
             >
               <Label
                 content={({ viewBox }) => {
