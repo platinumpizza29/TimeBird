@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { headers } from "next/headers";
 import NavbarComp from "~/components/landingPage/navbarComp";
 import { Input } from "~/components/ui/input";
@@ -5,6 +7,14 @@ import { auth } from "~/lib/auth";
 import { db } from "~/server/db";
 import { redirect } from "next/navigation";
 import { Card } from "~/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
+import { Type } from "@prisma/client"; // Ensure this is the correct import
 
 export default async function LogHours() {
   async function handleForm(formData: FormData) {
@@ -21,9 +31,10 @@ export default async function LogHours() {
     const hours = formData.get("hours");
     const date = formData.get("date");
     const department = formData.get("department");
+    const type = formData.get("type");
 
     // Validate inputs
-    if (!hours || !date || !department) {
+    if (!hours || !date || !department || !type) {
       return;
     }
 
@@ -39,14 +50,19 @@ export default async function LogHours() {
           hours: parsedHours,
           date: new Date(date as string),
           department: department as string,
+          type: type as Type, // Ensure type is correctly asserted
           userId: sessionData.user.id,
         },
       });
 
       // Redirect after successful creation
       redirect(`/home/${sessionData.user.id}`);
-    } catch (error) {
-      console.error("Error logging hours:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error logging hours:", error.message);
+      } else {
+        console.error("Unknown error logging hours");
+      }
     }
   }
 
@@ -110,6 +126,27 @@ export default async function LogHours() {
                 required
                 className="w-full"
               />
+            </div>
+
+            <div>
+              <label
+                htmlFor="type"
+                className="text-gray-700 dark:text-gray-200"
+              >
+                Type
+              </label>
+              <Select name="type" required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={Type.OVERTIME}>Overtime</SelectItem>
+                  <SelectItem value={Type.VACATION}>Vacation</SelectItem>
+                  <SelectItem value={Type.SICK}>Sick</SelectItem>
+                  <SelectItem value={Type.HOLIDAY}>Holiday</SelectItem>
+                  <SelectItem value={Type.CONTRACT}>Contract</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
