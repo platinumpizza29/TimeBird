@@ -75,28 +75,27 @@ export function PieChartComp() {
             >
               <Label
                 content={({ viewBox }) => {
-                  if (
-                    viewBox &&
-                    typeof viewBox.cx === "number" &&
-                    typeof viewBox.cy === "number"
-                  ) {
+                  // Type assertion to ensure viewBox has cx and cy
+                  const { cx, cy } = viewBox as { cx: number; cy: number };
+
+                  if (typeof cx === "number" && typeof cy === "number") {
                     return (
                       <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
+                        x={cx}
+                        y={cy}
                         textAnchor="middle"
                         dominantBaseline="middle"
                       >
                         <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
+                          x={cx}
+                          y={cy}
                           className="fill-foreground text-3xl font-bold"
                         >
                           {totalVisitors.toLocaleString()}
                         </tspan>
                         <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy + 24}
+                          x={cx}
+                          y={cy + 24}
                           className="fill-muted-foreground"
                         >
                           Visitors

@@ -38,7 +38,7 @@ export default async function HeaderTableComp() {
             <TableHead>Date</TableHead>
             <TableHead>Department</TableHead>
             <TableHead>Hours</TableHead>
-            <TableHead>User</TableHead>
+            <TableHead>Type</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -47,6 +47,7 @@ export default async function HeaderTableComp() {
               <TableCell>{format(log.date, "MMM dd, yyyy")}</TableCell>
               <TableCell>{log.department}</TableCell>
               <TableCell>{log.hours}</TableCell>
+              <TableCell>{log.type}</TableCell>
             </TableRow>
           ))}
         </TableBody>
