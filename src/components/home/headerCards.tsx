@@ -2,52 +2,62 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-export default function HeaderCardsComp() {
+import { PieChartComp } from "./pieComp";
+import {
+  calculateMonthlyHours,
+  calculateWeeklyHours,
+  getRecentTimeLogs,
+} from "~/lib/timeLogActions";
+import { auth } from "~/lib/auth";
+import { headers } from "next/headers";
+import { type TimeLog } from "@prisma/client";
+
+export default async function HeaderCardsComp() {
+  const sessionData = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!sessionData?.user?.id) {
+    return <div>Please log in to view your time logs.</div>;
+  }
+
+  const userId = sessionData.user.id;
+  const timeLogs = (await getRecentTimeLogs(userId)) as TimeLog[];
+
+  if (timeLogs.length === 0) {
+    return <div>No recent time logs available.</div>;
+  }
+
+  const weeklyHours = calculateWeeklyHours(timeLogs);
+  const monthlyHours = calculateMonthlyHours(timeLogs);
+
   return (
     <div className="grid auto-rows-min gap-4 md:grid-cols-3">
       {/* 1st card */}
       <Card className="aspect-video rounded-xl bg-muted/50">
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardTitle>Weekly Hours</CardTitle>
+          <CardDescription>Total weekly hours</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Card Content</p>
+          <p>{weeklyHours}</p>
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
       {/* 2nd card */}
       <Card className="aspect-video rounded-xl bg-muted/50">
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardTitle>Monthly Hours</CardTitle>
+          <CardDescription>Total monthly hours</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Card Content</p>
+          <p>{monthlyHours}</p>
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
       {/* 3rd card */}
-      <Card className="aspect-video rounded-xl bg-muted/50">
-        <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
-      </Card>
+      <PieChartComp />
     </div>
   );
 }

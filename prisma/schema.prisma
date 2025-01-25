@@ -32,6 +32,7 @@ model TimeLog {
   updatedAt DateTime @updatedAt
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department String 
   date      DateTime // The date of the logged hours
   hours     Float // Number of hours worked on this date
 }
