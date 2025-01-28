@@ -5,8 +5,9 @@ import { auth } from "~/lib/auth";
 import { db } from "~/server/db"; // Adjust the import based on your project structure
 
 export async function GET() {
+  const sessionHeaders = await headers();
   const sessionData = await auth.api.getSession({
-    headers: headers(),
+    headers: sessionHeaders,
   });
   const userId = sessionData?.user?.id;
   try {

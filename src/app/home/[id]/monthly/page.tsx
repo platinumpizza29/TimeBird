@@ -8,7 +8,7 @@ import { db } from "~/server/db";
 
 export default async function MonthlySummaryPage() {
   const sessionData = await auth.api.getSession({
-    headers: headers(),
+    headers: await headers(),
   });
   const userId = sessionData?.session.userId;
   const timelogs = await db.timeLog.findMany({
