@@ -6,15 +6,16 @@ import { cn } from "~/lib/utils";
 
 const THEMES = { light: "", dark: ".dark" } as const;
 
-export type ChartConfig = {
-  [key: string]: {
+export type ChartConfig = Record<
+  string,
+  {
     label?: React.ReactNode;
     icon?: React.ComponentType;
   } & (
     | { color?: string; theme?: never }
     | { color?: never; theme: Record<keyof typeof THEMES, string> }
-  );
-};
+  )
+>;
 
 type ChartContextProps = {
   config: ChartConfig;
@@ -50,7 +51,7 @@ const ChartContainer = React.forwardRef<
       >
         <ChartStyle id={chartId} config={config} />
         <RechartsPrimitive.ResponsiveContainer>
-          {children}
+          {React.isValidElement(children) ? children : <div />}
         </RechartsPrimitive.ResponsiveContainer>
       </div>
     </ChartContext.Provider>
@@ -107,7 +108,6 @@ const ChartTooltipContent = React.forwardRef<
     {
       active,
       payload,
-      className,
       indicator = "dot",
       hideLabel = false,
       hideIndicator = false,
@@ -115,7 +115,6 @@ const ChartTooltipContent = React.forwardRef<
       labelFormatter,
       labelClassName,
       formatter,
-      color,
       nameKey,
       labelKey,
     },
@@ -129,11 +128,11 @@ const ChartTooltipContent = React.forwardRef<
       }
 
       const [item] = payload;
-      const key = labelKey ?? item.dataKey ?? item.name ?? "value";
+      const key = String(labelKey ?? item?.dataKey ?? item?.name ?? "value");
       const itemConfig = getPayloadConfigFromPayload(config, item, key);
       const value =
         !labelKey && typeof label === "string"
-          ? (config[label as keyof typeof config]?.label ?? label)
+          ? (config[label]?.label ?? label)
           : itemConfig?.label;
 
       if (labelFormatter) {
