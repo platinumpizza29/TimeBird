@@ -1,6 +1,4 @@
-"use client";
 import { AppSidebar } from "~/components/app-sidebar";
-import NavbarComp from "~/components/landingPage/navbarComp";
 import {
   SidebarInset,
   SidebarProvider,
@@ -15,13 +13,10 @@ import {
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
 import { Separator } from "~/components/ui/separator";
-import { authClient } from "~/lib/auth-client";
 import HeaderCardsComp from "~/components/home/headerCards";
 import HeaderTableComp from "~/components/home/headerTableComp";
 
 export default function HomePage() {
-  const user = authClient.useSession();
-  console.log(user);
   return (
     <div>
       <SidebarProvider>

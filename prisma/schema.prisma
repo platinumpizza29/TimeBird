@@ -26,14 +26,24 @@ model User {
   @@map("user")
 }
 
+enum Type {
+  OVERTIME
+  VACATION
+  SICK
+  HOLIDAY
+  CONTRACT
+}
+
 model TimeLog {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date      DateTime // The date of the logged hours
-  hours     Float // Number of hours worked on this date
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department String
+  type       Type
+  date       DateTime // The date of the logged hours
+  hours      Float // Number of hours worked on this date
 }
 
 // Views or computed fields can be handled in Next.js using Prisma queries

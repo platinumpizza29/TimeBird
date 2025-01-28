@@ -1,16 +1,12 @@
 "use client";
-
 import * as React from "react";
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   ChartAreaIcon,
   Command,
   GalleryVerticalEnd,
   PlusCircleIcon,
   Settings,
-  Settings2,
   User,
 } from "lucide-react";
 
@@ -23,11 +19,14 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenuItem,
   SidebarRail,
 } from "~/components/ui/sidebar";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import { authClient } from "~/lib/auth-client";
+
+const session = await authClient.getSession();
+const userId = session.data?.session.userId;
 
 // This is sample data.
 const data = {
@@ -62,20 +61,25 @@ const data = {
       items: [
         {
           title: "Weekly",
-          url: "#",
+          url: `/home/${userId}/weekly`,
         },
         {
           title: "Monthly",
-          url: "#",
+          url: `/home/${userId}/monthly`,
         },
         {
           title: "Yearly",
-          url: "#",
+          url: `/home/${userId}/yearly`,
         },
       ],
     },
   ],
   Accessibility: [
+    {
+      name: "My Rota",
+      url: `/home/${userId}/rota`,
+      icon: User,
+    },
     {
       name: "Profile",
       url: "#",
@@ -83,7 +87,7 @@ const data = {
     },
     {
       name: "Settings",
-      url: "#",
+      url: `/home/${userId}/settings`,
       icon: Settings,
     },
   ],
