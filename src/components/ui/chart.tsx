@@ -156,7 +156,7 @@ const ChartTooltipContent = React.forwardRef<
       labelKey,
     ]);
 
-    if (!active ?? !payload?.length) {
+    if (!active || !payload?.length) {
       return null;
     }
 
