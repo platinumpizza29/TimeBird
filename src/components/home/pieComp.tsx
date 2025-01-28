@@ -1,60 +1,99 @@
 "use client";
 
+import { type TimeLog } from "@prisma/client";
 import * as React from "react";
-import { Label, Pie, PieChart } from "recharts";
+import { Cell, Label, Pie, PieChart } from "recharts";
 import { Card, CardContent } from "~/components/ui/card";
 import {
-  ChartConfig,
+  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "~/components/ui/chart";
 
-// Define a type for the chart data
 interface ChartData {
-  browser: string;
-  visitors: number;
+  type: string;
+  hours: number;
   fill: string;
 }
 
-const chartData: ChartData[] = [
-  { browser: "Chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "Safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "Firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "Edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "Other", visitors: 190, fill: "var(--color-other)" },
-];
-
-const chartConfig: ChartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
-};
-
 export function PieChartComp() {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
+  const [chartData, setChartData] = React.useState<ChartData[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  const chartConfig: ChartConfig = {
+    overtime: {
+      label: "Overtime",
+      color: "rgb(239 68 68)", // red-500
+    },
+    vacation: {
+      label: "Vacation",
+      color: "rgb(34 197 94)", // green-500
+    },
+    sick: {
+      label: "Sick",
+      color: "rgb(59 130 246)", // blue-500
+    },
+    holiday: {
+      label: "Holiday",
+      color: "rgb(168 85 247)", // purple-500
+    },
+    contract: {
+      label: "Contract",
+      color: "rgb(245 158 11)", // amber-500
+    },
+  };
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/timelogs");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const timeLogs = (await response.json()) as TimeLog[];
+
+        // Initialize the data map with explicit typing
+        const dataMap: Record<string, number> = {};
+
+        // Process the time logs
+        timeLogs.forEach((log) => {
+          const type = log.type;
+          const hours = Number(log.hours) ?? 0; // Ensure hours is a number
+          dataMap[type] = (dataMap[type] ?? 0) + hours;
+        });
+
+        // Transform with explicit type checking
+        const transformedData: ChartData[] = Object.entries(dataMap).map(
+          ([type, hours]): ChartData => ({
+            type,
+            hours: hours,
+            fill:
+              chartConfig[type as keyof typeof chartConfig]?.color ??
+              "rgb(203 213 225)",
+          }),
+        );
+
+        setChartData(transformedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData().catch((e) => {
+      console.error(e);
+    });
   }, []);
+
+  const totalHours = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.hours, 0);
+  }, [chartData]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Card className="flex aspect-video flex-col">
@@ -67,15 +106,17 @@ export function PieChartComp() {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="hours"
+              nameKey="type"
               innerRadius={60}
               strokeWidth={5}
-              stroke="var(--color-background)" // Set stroke color
+              stroke="rgb(255 255 255)"
             >
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.fill} />
+              ))}
               <Label
                 content={({ viewBox }) => {
-                  // Type assertion to ensure viewBox has cx and cy
                   const { cx, cy } = viewBox as { cx: number; cy: number };
 
                   if (typeof cx === "number" && typeof cy === "number") {
@@ -91,14 +132,14 @@ export function PieChartComp() {
                           y={cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalHours.toLocaleString()}
                         </tspan>
                         <tspan
                           x={cx}
                           y={cy + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Hours
                         </tspan>
                       </text>
                     );

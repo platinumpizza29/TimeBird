@@ -24,6 +24,8 @@ export default async function LogHours() {
       headers: await headers(),
     });
 
+    const userId = sessionData?.session.userId;
+
     if (!sessionData?.user?.id) {
       return;
     }
@@ -56,7 +58,7 @@ export default async function LogHours() {
       });
 
       // Redirect after successful creation
-      redirect(`/home/${sessionData.user.id}`);
+      redirect(`/home/${userId}`);
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error logging hours:", error.message);

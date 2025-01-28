@@ -24,7 +24,7 @@ export async function getRecentTimeLogs(userId: string) {
  * @param {Array<TimeLog>} timeLogs - Array of TimeLog objects.
  * @returns {number} - Total hours for the current week.
  */
-function calculateWeeklyHours(timeLogs: TimeLog[]) {
+async function calculateWeeklyHours(timeLogs: TimeLog[]) {
   const currentWeekStart = startOfWeek(new Date());
   let totalHours = 0;
 
@@ -43,7 +43,7 @@ function calculateWeeklyHours(timeLogs: TimeLog[]) {
  * @param {Array<TimeLog>} timeLogs - Array of TimeLog objects.
  * @returns {number} - Total hours for the current month.
  */
-function calculateMonthlyHours(timeLogs: TimeLog[]) {
+async function calculateMonthlyHours(timeLogs: TimeLog[]) {
   const currentMonthStart = startOfMonth(new Date());
   let totalHours = 0;
 
@@ -57,4 +57,35 @@ function calculateMonthlyHours(timeLogs: TimeLog[]) {
   return totalHours;
 }
 
-export { calculateWeeklyHours, calculateMonthlyHours };
+/**
+ * Get time logs for the current week.
+ * @param {Array<TimeLog>} timeLogs - Array of TimeLog objects.
+ * @returns {Array<TimeLog>} - Time logs for the current week.
+ */
+async function getWeeklyLogs(timeLogs: TimeLog[]) {
+  const currentWeekStart = startOfWeek(new Date());
+  return timeLogs.filter((log) => {
+    const logDate = new Date(log.date);
+    return isSameWeek(logDate, currentWeekStart);
+  });
+}
+
+/**
+ * Get time logs for the current month.
+ * @param {Array<TimeLog>} timeLogs - Array of TimeLog objects.
+ * @returns {Array<TimeLog>} - Time logs for the current month.
+ */
+async function getMonthlyLogs(timeLogs: TimeLog[]) {
+  const currentMonthStart = startOfMonth(new Date());
+  return timeLogs.filter((log) => {
+    const logDate = new Date(log.date);
+    return isSameMonth(logDate, currentMonthStart);
+  });
+}
+
+export {
+  calculateWeeklyHours,
+  calculateMonthlyHours,
+  getWeeklyLogs,
+  getMonthlyLogs,
+};

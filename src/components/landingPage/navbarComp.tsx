@@ -1,29 +1,42 @@
+import { headers } from "next/headers";
 import Link from "next/link";
+import { auth } from "~/lib/auth";
 
-export default function NavbarComp() {
+export default async function NavbarComp() {
+  const sessionData = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const user = sessionData?.user;
+
   return (
     <nav className="bg-white shadow dark:bg-gray-800">
       <div className="container mx-auto flex items-center justify-center p-6 capitalize text-gray-600 dark:text-gray-300">
         <a
-          href="#"
+          href={`/home/${user?.id}`}
           className="mx-1.5 transform border-b-2 border-blue-500 text-gray-800 transition-colors duration-300 dark:text-gray-200 sm:mx-6"
         >
           home
         </a>
 
-        <Link
-          href="/login"
-          className="mx-1.5 transform border-b-2 border-transparent transition-colors duration-300 hover:border-blue-500 hover:text-gray-800 dark:hover:text-gray-200 sm:mx-6"
-        >
-          Login
-        </Link>
+        {sessionData ? (
+          <div className=""></div>
+        ) : (
+          <div className="">
+            <Link
+              href="/login"
+              className="mx-1.5 transform border-b-2 border-transparent transition-colors duration-300 hover:border-blue-500 hover:text-gray-800 dark:hover:text-gray-200 sm:mx-6"
+            >
+              Login
+            </Link>
 
-        <Link
-          href="/register"
-          className="mx-1.5 transform border-b-2 border-transparent transition-colors duration-300 hover:border-blue-500 hover:text-gray-800 dark:hover:text-gray-200 sm:mx-6"
-        >
-          Register
-        </Link>
+            <Link
+              href="/register"
+              className="mx-1.5 transform border-b-2 border-transparent transition-colors duration-300 hover:border-blue-500 hover:text-gray-800 dark:hover:text-gray-200 sm:mx-6"
+            >
+              Register
+            </Link>
+          </div>
+        )}
 
         <a
           href="#"

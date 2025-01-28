@@ -1,10 +1,23 @@
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import BlogPostComp from "~/components/landingPage/blogPostComp";
 import ContactUs from "~/components/landingPage/contactUs";
 import FeaturesComp from "~/components/landingPage/featuresComp";
 import FooterComp from "~/components/landingPage/footerComp";
 import NavbarComp from "~/components/landingPage/navbarComp";
+import { auth } from "~/lib/auth";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const sessionData = await auth.api.getSession({
+    headers: headers(),
+  });
+
+  const userId = sessionData?.session.userId;
+
+  if (sessionData) {
+    redirect(`/home/${userId}`);
+  }
+
   return (
     <main className="">
       <NavbarComp />
