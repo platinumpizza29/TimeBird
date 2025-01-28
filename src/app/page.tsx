@@ -9,7 +9,7 @@ import { auth } from "~/lib/auth";
 
 export default async function HomePage() {
   const sessionData = await auth.api.getSession({
-    headers: headers(),
+    headers: await headers(),
   });
 
   const userId = sessionData?.session.userId;

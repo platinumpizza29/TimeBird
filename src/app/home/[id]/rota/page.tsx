@@ -134,10 +134,13 @@ export default function ModernCalendar() {
             </div>
           </div>
         )}
-        eventClassNames={(arg) => [
+        eventClassNames={(arg): string[] => [
           "transition-colors",
           "duration-200",
-          arg.event.extendedProps.className ?? "bg-blue-500 hover:bg-blue-600",
+          ...(typeof arg.event.extendedProps.className === "string"
+            ? [arg.event.extendedProps.className]
+            : []),
+          "bg-blue-500 hover:bg-blue-600",
         ]}
         dayHeaderClassNames="text-sm font-semibold text-gray-700 uppercase"
         slotLabelClassNames="text-sm text-gray-500"
