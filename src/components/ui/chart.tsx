@@ -8,6 +8,14 @@ import { cn } from "~/lib/utils";
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
 
+// Define the types for your payload
+type Payload<T, K> = {
+  value: T;
+  name: K;
+};
+
+type MyPayload = Payload<number, string>;
+
 export type ChartConfig = Record<
   string,
   {
@@ -139,7 +147,7 @@ const ChartTooltipContent = React.forwardRef<
         return null;
       }
 
-      const [item] = payload;
+      const [item] = payload as MyPayload[];
       const key = `${labelKey ?? item?.dataKey ?? item?.name ?? "value"}`;
       const itemConfig = getPayloadConfigFromPayload(config, item, key);
       const value =
