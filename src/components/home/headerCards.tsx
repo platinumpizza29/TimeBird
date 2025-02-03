@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { PieChartComp } from "./pieComp";
+import PieChartComp from "./pieComp";
 import {
   calculateMonthlyHours,
   calculateWeeklyHours,
