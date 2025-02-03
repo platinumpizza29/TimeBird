@@ -1,4 +1,5 @@
 "use client";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
@@ -10,6 +11,7 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +21,11 @@ export default function LoginPage() {
         password: password,
       },
       {
+        onRequest() {
+          setIsLoading(true)
+        },
         onSuccess: async (ctx) => {
+          setIsLoading(false)
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           const userData = await ctx.data.user;
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -113,10 +119,11 @@ export default function LoginPage() {
 
                 <div className="mt-6">
                   <Button
+                    disabled={isLoading}
                     onClick={handleSubmit}
                     className="w-full transform rounded-lg bg-blue-500 px-4 py-2 tracking-wide text-white transition-colors duration-300 hover:bg-blue-400 focus:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                   >
-                    Sign in
+                    {isLoading ? (<Loader2 className="animate-spin" />) : "Sign In"}
                   </Button>
                 </div>
               </form>

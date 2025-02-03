@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { PieChartComp } from "./pieComp";
+import PieChartComp from "./pieComp";
 import {
   calculateMonthlyHours,
   calculateWeeklyHours,
@@ -59,9 +59,9 @@ export default async function HeaderCardsComp() {
       {/* 2nd card */}
       <Card className="aspect-video rounded-xl bg-muted/50 p-4">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold">Weekly Hours</CardTitle>
+          <CardTitle className="text-lg font-semibold">Monthly Hours</CardTitle>
           <CardDescription className="text-sm text-muted-foreground">
-            Total weekly hours
+            Total monthly hours
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center">
