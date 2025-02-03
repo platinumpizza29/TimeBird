@@ -68,7 +68,7 @@ const data = {
           url: `/home/${userId}/monthly`,
         },
         {
-          title: "Yearly",
+          title: "All Logs",
           url: `/home/${userId}/yearly`,
         },
       ],
@@ -82,7 +82,7 @@ const data = {
     },
     {
       name: "Profile",
-      url: "#",
+      url: `/home/${userId}/profile`,
       icon: User,
     },
     {
