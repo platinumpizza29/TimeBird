@@ -5,6 +5,8 @@ import ContactUs from "~/components/landingPage/contactUs";
 import FeaturesComp from "~/components/landingPage/featuresComp";
 import FooterComp from "~/components/landingPage/footerComp";
 import NavbarComp from "~/components/landingPage/navbarComp";
+import PricingComp from "~/components/landingPage/pricing";
+import Testimonial from "~/components/landingPage/testimonial";
 import { auth } from "~/lib/auth";
 
 export default async function HomePage() {
@@ -31,60 +33,10 @@ export default async function HomePage() {
 
               <div className="mt-8 space-y-5">
                 <p className="-mx-2 flex items-center text-gray-700 dark:text-gray-200">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-2 h-6 w-6 text-blue-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-
-                  <span className="mx-2">Clean and Simple Layout</span>
-                </p>
-
-                <p className="-mx-2 flex items-center text-gray-700 dark:text-gray-200">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-2 h-6 w-6 text-blue-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-
-                  <span className="mx-2">Just Copy Paste Codeing</span>
-                </p>
-
-                <p className="-mx-2 flex items-center text-gray-700 dark:text-gray-200">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-2 h-6 w-6 text-blue-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-
-                  <span className="mx-2">Easy to Use</span>
+                  <span className="mx-2">
+                    Effortlessly log your work hours and get accurate pay
+                    estimates with detailed analytics
+                  </span>
                 </p>
               </div>
             </div>
@@ -118,6 +70,8 @@ export default async function HomePage() {
       </section>
       <FeaturesComp />
       <BlogPostComp />
+      <Testimonial />
+      <PricingComp />
       <ContactUs />
       <FooterComp />
     </main>

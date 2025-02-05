@@ -1,36 +1,50 @@
-"use client"
-import React from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-import { Card } from '~/components/ui/card';
+"use client";
+import { type TimeLog } from "@prisma/client";
+import React from "react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+  Tooltip,
+} from "recharts";
+import { Card } from "~/components/ui/card";
 
-const DonutChart = () => {
-  const data = [
-    { name: 'Jan', value: 10 },
-    { name: 'Feb', value: 25 },
-    { name: 'Mar', value: 40 },
-    { name: 'Apr', value: 30 },
-    { name: 'May', value: 50 },
-    { name: 'Jun', value: 60 }
-  ];
+const DonutChart = ({ props }: { props: TimeLog[] }) => {
+  const chartData = props.map((log) => ({
+    hours: log.hours,
+    type: log.type,
+  }));
 
   // Custom colors that look good together
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
+  const COLORS = [
+    "#0088FE",
+    "#00C49F",
+    "#FFBB28",
+    "#FF8042",
+    "#8884d8",
+    "#82ca9d",
+  ];
 
   return (
-    <Card className="w-full aspect-video p-4 bg-muted/50">
+    <Card className="aspect-video w-full bg-muted/50 p-4">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
-            data={data}
+            data={chartData}
             cx="50%"
             cy="50%"
             innerRadius="60%"
             outerRadius="80%"
             paddingAngle={2}
-            dataKey="value"
+            dataKey="hours"
           >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            {chartData.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
             ))}
           </Pie>
           <Tooltip />
@@ -42,4 +56,3 @@ const DonutChart = () => {
 };
 
 export default DonutChart;
-

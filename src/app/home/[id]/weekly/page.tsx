@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { headers } from "next/headers";
 import Link from "next/link";
+import WeeklyChartComp from "~/components/home/weeklyChart";
 import NavbarComp from "~/components/landingPage/navbarComp";
 import { auth } from "~/lib/auth";
 import { getWeeklyLogs } from "~/lib/timeLogActions";
@@ -25,6 +26,10 @@ export default async function WeeklySummaryPage() {
             <ArrowLeft />
           </Link>
           <h1 className="text-2xl font-bold">Weekly Summary</h1>
+        </div>
+
+        <div className="">
+          <WeeklyChartComp props={weeklySummary} />
         </div>
 
         <div className="-m-1.5 overflow-x-auto">

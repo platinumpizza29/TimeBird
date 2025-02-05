@@ -42,7 +42,7 @@ export default function ContactUs() {
               Speak to our friendly team.
             </p>
             <p className="mt-2 text-sm text-blue-500 dark:text-blue-400">
-              hello@merakiui.com
+              kbelgi1@gmail.com
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export default function ContactUs() {
               Chat to support
             </h2>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-              We’re here to help.
+              We&apos;re here to help.
             </p>
             <p className="mt-2 text-sm text-blue-500 dark:text-blue-400">
               Start new chat
@@ -139,7 +139,7 @@ export default function ContactUs() {
               Mon-Fri from 8am to 5pm.
             </p>
             <p className="mt-2 text-sm text-blue-500 dark:text-blue-400">
-              +1 (555) 000-0000
+              +447824886546
             </p>
           </div>
         </div>

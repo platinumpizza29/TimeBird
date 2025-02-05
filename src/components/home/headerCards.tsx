@@ -77,7 +77,7 @@ export default async function HeaderCardsComp() {
         </CardContent>
       </Card>
       {/* 3rd card */}
-      <PieChartComp />
+      <PieChartComp props={timeLogs} />
     </div>
   );
 }
